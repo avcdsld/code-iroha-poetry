@@ -4,6 +4,8 @@ const { mac } = require('address');
 const app = express();
 const port = 80;
 
+process.env.PATH = `${process.env.PATH}:/usr/local/go/bin`;
+
 let macAddress = '';
 mac(function (err, addr) {
     console.log(err);
