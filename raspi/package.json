@@ -1,0 +1,10 @@
+{
+  "name": "code-ihora-poetry",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "address": "^2.0.1",
+    "express": "^4.18.2"
+  }
+}
