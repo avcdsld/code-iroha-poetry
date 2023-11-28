@@ -1,23 +1,23 @@
 using System;
 using System.Collections.Generic;
 
-interface IMediaRedefiner
+interface IMediumRedefiner
 {
-    string RedefineMedia(List<string> media);
+    string RedefineMedium(List<string> media);
 }
 
 class PostMediumArt
 {
     private List<string> media = new List<string>();
 
-    public PostMediumArt(params string[] mediaToAdd)
+    public PostMediumArt(params string[] media)
     {
-        media.AddRange(mediaToAdd);
+        media.AddRange(media);
     }
 
-    public string RedefineMedia(IMediaRedefiner redefiner)
+    public string RedefineMedium(IMediumRedefiner redefiner)
     {
-        return redefiner.RedefineMedia(media);
+        return redefiner.RedefineMedium(media);
     }
 
     static void Main(string[] args)
