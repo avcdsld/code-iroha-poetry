@@ -1,8 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const { exec } = require('child_process');
 const { mac } = require('address');
 const app = express();
 const port = 80;
+
+app.use(cors());
 
 process.env.PATH = `${process.env.PATH}:/usr/local/go/bin`;
 
