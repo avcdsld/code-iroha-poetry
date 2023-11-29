@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Code Poetry</title>
+
+    <link rel="icon" href="/favicon.ico" sizes="any"><!-- 32×32 -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Inconsolata&family=Mooli&display=swap" rel="stylesheet">
+
+    <style>
+         @keyframes colorChange {
+            0%   { background-color: #9673a6; } /* インタラクティブアート: 藤色 */
+            14%  { background-color: #bbaa77; } /* ローファイアート: 抹茶色 */
+            28%  { background-color: #c0c0c0; } /* ハイパーメディア: 銀鼠色 */
+            42%  { background-color: #00ff00; } /* ニューメディアアート: 青竹色 */
+            56%  { background-color: #a98b79; } /* ポストメディウム: 枯茶色 */
+            70%  { background-color: #ffc20e; } /* ヘリオグラフィー: 山吹色 */
+            84%  { background-color: #003366; } /* トランスメディア: 紺色 */
+            100% { background-color: #9673a6; } /* 最後に最初の色に戻る */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hina Mincho', serif;
+
+            background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #ffffff 14px ), repeating-linear-gradient( #ffffffdc, #e8e8e8 );
+            animation: colorChange 60s infinite;
+            height: 100vh;
+        }
+        h2 {
+            font-size: 1.5em;
+            line-height: 1.5em;
+            margin-bottom: 36px;
+        }
+
+        .menu {
+            margin-top: 20px;
+            width: 80vw;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .menu a {
+            margin-left: 10px;
+            margin-right: 10px;
+            text-decoration: none;
+            color: black;
+            border-radius: 50%;
+            padding: 5px 10px;
+            display: inline-block;
+        }
+        .menu .selected {
+            background-color: #d0d0d0;
+            color: white;
+        }
+
+        .poem-title {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 1.5em;
+        }
+
+        .container {
+            align-items: center;
+            justify-content: center;
+            max-width: 60vw;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .text {
+            margin-top: 28px;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <a href="#" class="selected" >概要</a>
+        &ensp;|&emsp;
+        <a href="index.html" >作品をみる</a>
+    </div>
+
+    <div class="poem-title" id="poem-title">コードいろは歌について</div>
+ 
+    <div class="container">
+        <div class="text">
+            プログラムのコードは、いまや私たちの生活に深く溶け込んでおり、様々な社会システムやアートなどに使われています。一方でコードが持つメディウム性は、いまなお十分に探索・評価されていません。2015年の文化庁メディア芸術祭の大賞にはプログラムのコードが選ばれました（CHUNG Waiching Bryan による《50 . Shades of Grey》）。これは素晴らしい快挙でしたが、贈賞理由には、コードそのものの価値というより、作者の経験や古い技術への敬意が挙がりました。この評価には、コード作品における可読性や展示方法の難しさを感じました。私は今回の作品で、そのような難しさに挑戦し、コードが持つ美しさと可能性を示したいと思いました。
+        </div>
+        <div class="text">
+            本作は、プログラムのコードによる「いろは歌」です。比較的モダンな７つのプログラミング言語を用いて、「い」「ろ」「は」「に」「ほ」「へ」「と」の文字に対応する７つのコード詩と、その日本語訳をつくりました。コード詩のテーマとして、それぞれの文字から始まる、メディアアートに関連の深いキーワードを取り上げました。ウェブページでは、それらの「いろは歌」を朗読・実行できます。「詠む」ボタンを押すと、ブラウザの音声読み上げ機能を使って、コードの詩と日本語の詩が一行ずつ交互に読み上げられます。「実行する」ボタンを押すと、インターネットを経由して、私が管理するとある計算機にリクエストが飛び、表示されているコード詩が実際にそこで実行されます。処理が正常に終わると、コードが実行されたことを証明する「実行証明書」が表示されます。
+        </div>
+        <div class="text">
+            コード特有の性質として「実行できる」ことが挙げられます。しかしながら、最近のインターネット上では、コードの実行環境がほとんどブラックボックス状態となっています。いったいそのコードはどこで実行されたのか、果たして本当に実行されたのか、誰がそれを保証してくれるのか。そんな世界では、実感もないし誰も信用できません。しかしこの状況は、コード詩のような短いコードに触れることをきっかけに、良い方向へと変えられるかもしれません。今回用意したコード詩の日本語訳は、英語の詩を日本語に訳すような感覚でつくりました。朗読は、コードと日本語を交互に読むことによって、どちらも同等のものであり、コードは理解できるものなんだと認識してもらうことを狙っています。
+        </div>
+        <div class="text">
+            Created by Ara (X: @arandoros)
+        </div>
+        <div class="text">&nbsp;</div>
+    </div>
+
+    <script>
+        
+    </script>
+</body>
+</html>

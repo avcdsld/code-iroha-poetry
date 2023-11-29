@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Code Poetry</title>
+
+    <link rel="icon" href="/favicon.ico" sizes="any"><!-- 32×32 -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Inconsolata&family=Mooli&display=swap" rel="stylesheet">
+
+    <style>
+        @keyframes colorChange {
+            0%   { background-color: #9673a6; } /* インタラクティブアート: 藤色 */
+            14%  { background-color: #bbaa77; } /* ローファイアート: 抹茶色 */
+            28%  { background-color: #c0c0c0; } /* ハイパーメディア: 銀鼠色 */
+            42%  { background-color: #00ff00; } /* ニューメディアアート: 青竹色 */
+            56%  { background-color: #a98b79; } /* ポストメディウム: 枯茶色 */
+            70%  { background-color: #ffc20e; } /* ヘリオグラフィー: 山吹色 */
+            84%  { background-color: #003366; } /* トランスメディア: 紺色 */
+            100% { background-color: #9673a6; } /* 最後に最初の色に戻る */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hina Mincho', serif;
+
+            background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #ffffff 14px ), repeating-linear-gradient( #ffffffdc, #e8e8e8 );
+            animation: colorChange 60s infinite;
+        }
+        h2 {
+            font-size: 1.5em;
+            line-height: 1.5em;
+            margin-bottom: 36px;
+        }
+
+        .menu {
+            margin-top: 20px;
+            width: 80vw;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .menu a {
+            margin-left: 10px;
+            margin-right: 10px;
+            text-decoration: none;
+            color: black;
+            border-radius: 50%;
+            padding: 5px 10px;
+            display: inline-block;
+        }
+        .menu .selected {
+            background-color: #d0d0d0;
+            color: white;
+        }
+
+        .poem-title {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 1.5em;
+        }
+
+        .buttons-container {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .button {
+            opacity: 0.9;
+            background-color: #ffffff;
+            padding: 2px 50px;
+            margin: 0 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-family: 'Hina Mincho', serif;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 80vw;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .read-poem-button {
+            margin: auto;
+            display: block;
+        }
+        .run-poem-button {
+            margin: auto;
+            display: block;
+        }
+
+        .column {
+            flex: 1;
+            margin: 0;
+            padding: 40px;
+            min-height: 60vh;
+            height: auto;
+        }
+        .left-column {
+            opacity: 0.8;
+            background-color: #ffffff;
+        }
+        .left-column h2 {
+            font-family: 'IPAexMincho', serif;
+        }
+        .left-column pre {
+            font-family: 'Inconsolata', serif;
+            font-size: 1em;
+            line-height: 1.2em;
+        }
+        .right-column {
+            opacity: 0.8;
+            background-color: #e6e6e6;
+        }
+        .translation-text {
+            font-family: 'Hina Mincho', serif;
+            font-size: 1em;
+            line-height: 1.2em;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 50px;
+            /* border: 1px solid #000; */
+            width: 60%;
+        }
+
+        .modal-header {
+            font-size: 24px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 40px;
+            padding-top: 30px;
+            /* border-bottom: 1px solid #000; */
+        }
+
+        .modal-body {
+            text-align: left;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        .modal-body table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .modal-body th, .modal-body td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #000;
+        }
+
+        .modal-footer {
+            text-align: right;
+            font-size: 16px;
+            margin-top: 20px;
+            padding-top: 10px;
+            /* border-top: 1px solid #000; */
+        }
+
+        .close {
+            color: #000;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .signature {
+            max-width: 70px;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content,
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .modal-header,
+            .modal-footer,
+            .button,
+            h2,
+            .poem-title {
+                font-size: 18px;
+            }
+
+            .column,
+            .left-column pre,
+            .translation-text {
+                padding: 20px;
+                font-size: 0.9em;
+                overflow-x: auto;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .modal-content,
+            .container {
+                width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <a href="about.html" >概要</a>
+        &ensp;|&emsp;
+        <a href="#" onclick="changePoem('い')">い</a>
+        <a href="#" onclick="changePoem('ろ')">ろ</a>
+        <a href="#" onclick="changePoem('は')">は</a>
+        <a href="#" onclick="changePoem('に')">に</a>
+        <a href="#" onclick="changePoem('ほ')">ほ</a>
+        <a href="#" onclick="changePoem('へ')">へ</a>
+        <a href="#" onclick="changePoem('と')">と</a>
+    </div>
+
+    <div class="poem-title" id="poem-title"></div>
+ 
+    <div class="buttons-container">
+        <button class="button" id="read-poem-button">詠む</button>
+        <button class="button" id="run-poem-button">実行する</button>
+    </div>
+
+    <div class="container">
+        <div class="column left-column" id="left-column">
+            <pre id="code-text"></pre>
+        </div>
+
+        <div class="column right-column" id="right-column">
+            <pre class="translation-text" id="translation-text"></pre>
+        </div>
+    </div>
+
+    <div id="runResultModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                実行証明書
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <th>実行したコード詩</th>
+                        <td id="poem-key"></td>
+                    </tr>
+                    <tr>
+                        <th>実行に要した時間</th>
+                        <td id="elapsed-time"></td>
+                    </tr>
+                    <tr>
+                        <th>実行された時刻</th>
+                        <td id="timestamp"></td>
+                    </tr>
+                    <tr>
+                        <th>計算機の物理アドレス</th>
+                        <td id="mac-address"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <p id="issued-date"></p>
+                <p><img src="sig.png" alt="Signature" class="signature"></p>
+            </div>
+            <span class="close">&times;</span>
+        </div>
+    </div>
+
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">不実行証明書</div>
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                            <th>実行されなかったコード詩</th>
+                            <td id="error-poem-key"></td>
+                        </tr>
+                        <tr>
+                            <th>実行しようとした時刻</th>
+                            <td id="error-timestamp"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <p>エラーが発生しました。コードは実行されませんでした。</p>
+                    <p id="error-issued-date"></p>
+                    <p><img src="sig.png" alt="Signature" class="signature"></p>
+                </div>
+            <span class="close">&times;</span>
+        </div>
+    </div>
+
+    <script>
+        const poems = {
+            'い': {
+                title: 'インタラクティブアート - JavaScript',
+                codeTitle: 'Interactive Art // JavaScript',
+                code: `\
+class InteractiveArt {
+  constructor() {
+    this.totalVisitors = 0;
+  }
+
+  visit(numberOfVisitors) {
+    this.totalVisitors += numberOfVisitors;
+  }
+}
+
+const art = new InteractiveArt();
+art.visit(1);`,
+                translation: `\
+対話型アートの創作、
+　はじめに、
+　　訪れる者の数、まだ無し。
+
+
+　訪れるごとに、
+　　足跡は一つずつ積み上がる。
+
+
+
+アートは生まれる。
+一人の訪問者が来ると、新たな物語が紡がれる。`,
+                readingTexts: [
+                    'class InteractiveArt {',
+                    '対話型アートの創作、',
+                    '  constructor() {',
+                    '　はじめに、',
+                    '    this.totalVisitors = 0;',
+                    '　　訪れるものの数、まだ無し。',
+                    '  visit(numberOfVisitors) {',
+                    '　訪れるごとに、',
+                    '    this.totalVisitors += numberOfVisitors;',
+                    '　　足跡は一つずつ積み上がる',
+                    'const art = new InteractiveArt();',
+                    'アートは生まれる。',
+                    'art dot visit(1);`,',
+                    '一人の訪問者がくると、新たな物語が紡がれる。',
+                ],
+            },
+            'ろ': {
+                title: 'ローファイアート - Python',
+                codeTitle: 'Lo-Fi Art // Python',
+                code: `\
+import random
+
+def lofi_effect(char):
+    if random.choice([True, False]):
+        return char.lower()
+    else:
+        return char.upper()
+
+original = "Art"
+lofi_art = "".join(map(lofi_effect, original))`,
+                translation: `\
+偶然を呼び込む
+
+言葉を変えるローファイの効用
+　運命のコインが空に舞い、
+　　言葉は静かな囁きへ
+　あるいは、
+　　力強い叫びへ
+
+始まりは「アート」
+偶然が紡ぐ、多様な調和`,
+                readingTexts: [
+                    'import random',
+                    '偶然を呼び込む',
+                    'def lo-fi effect(char):',
+                    '言葉を変えるローファイの効用',
+                    '    if random.choice([True, False]):',
+                    '　運命のコインがそらに舞い、',
+                    '        return char.lower()',
+                    '　　言葉は静かな囁きへ',
+                    '    else:',
+                    '　あるいは、',
+                    '        return char.upper()',
+                    '　　力強い叫びへ',
+                    'original = "Art"',
+                    '始まりは「アート」',
+                    'lo-fi art = "" dot join(map(lo-fi effect, original))`,',
+                    '偶然が紡ぐ、多様な調和',
+                ],
+            },
+            'は': {
+                title: 'ハイパーメディア - Go',
+                codeTitle: 'Hypermedia // Go',
+                code: `\
+package main
+
+type Hypermedia struct {
+    Media []interface{}
+}
+
+func (h *Hypermedia) AddMedia(media interface{}) {
+    h.Media = append(h.Media, media)
+}
+
+func main() {
+    hypermedia := &Hypermedia{}
+    hypermedia.AddMedia("art")
+    hypermedia.AddMedia([]byte("art"))
+}`,
+                translation: `\
+
+
+ハイパーメディアとは、
+　多様なメディアから形作られるもの。
+
+
+メディアが加わると、
+　一つに結ばれ、姿は変わりゆく。
+
+
+
+展開されるハイパーメディア。
+言葉から始まり、
+融合する色彩。`,
+                readingTexts: [
+                    'package main',
+                    '',
+                    'type Hypermedia struct {',
+                    'ハイパーメディアとは、',
+                    '    Media []interface{}',
+                    '　多様なメディアから形作られるもの。',
+                    'func (h *Hypermedia) AddMedia(media interface{}) {',
+                    'メディアが加わると、',
+                    '    h.Media = append(h.Media, media)',
+                    '　一つに結ばれ、姿は変わりゆく。',
+                    'func main() {',
+                    '',
+                    '    hypermedia := &Hypermedia{}',
+                    '展開されるハイパーメディア。',
+                    '    hypermedia.AddMedia("art")',
+                    '言葉から始まり、',
+                    '    hypermedia.AddMedia([]byte("art"))',
+                    '融合する色彩。',
+
+                ],
+            },
+            'に': {
+                title: 'ニューメディアアート - Java',
+                codeTitle: 'New Media Art // Java',
+                code: `\
+class MediaArt { }
+
+class NewMediaArt extends MediaArt {
+    String innovativeElement;
+
+    public NewMediaArt(String innovativeElement) {
+        this.innovativeElement = innovativeElement;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        NewMediaArt fakeNewMediaArt
+                             = new NewMediaArt("");
+    }
+}`,
+                translation: `\
+初めにメディアアートあり。
+
+ニューメディアアートは、
+　メディアアートを拡張し、
+　革新的要素を持つもの。
+
+　内なる心に、革新的要素を持つ。
+
+
+
+
+
+造られた偽のニューメディアアート。
+革新的要素は、何も無い。`,
+                readingTexts: [
+                    'class MediaArt { }',
+                    '初めにメディアアートあり。',
+                    'class NewMediaArt extends MediaArt {',
+                    '',
+                    '    String innovativeElement;',
+                    'ニューメディアアートは、メディアアートを拡張し、革新的要素を持つもの。',
+                    '    public NewMediaArt(String innovativeElement) {',
+                    '',
+                    '        this.innovativeElement = innovativeElement;',
+                    '　内なる心に、革新的要素を持つ。',
+                    'public class Main {',
+                    '',
+                    '    public static void main(String[] args) {',
+                    '',
+                    '        NewMediaArt fakeNewMediaArt = new NewMediaArt("");',
+                    '造られたニセのニューメディアアート。革新的要素は、何も無い。',
+                ],
+            },
+            'ほ': {
+                title: 'ポストメディウム - C#',
+                codeTitle: 'Post Medium // C#',
+                code: `\
+using System;
+using System.Collections.Generic;
+
+interface IMediumRedefiner
+{
+    string RedefineMedium(List<string> media);
+}
+
+class PostMediumArt
+{
+    private List<string> media = new List<string>();
+
+    public PostMediumArt(params string[] media)
+    {
+        media.AddRange(media);
+    }
+
+    public string RedefineMedium(IMediumRedefiner redefiner)
+    {
+        return redefiner.RedefineMedium(media);
+    }
+
+    static void Main(string[] args)
+    {
+        var art = new PostMediumArt(
+                         "Painting", "Sculpture", "Code");
+    }
+}`,
+                translation: `\
+システムを用いる。
+システムの汎用知識を用いる。
+
+メディウムを再定義するものがいるとする。
+
+　彼らは複数のメディウムを使って、メディウムを再定義する。
+
+
+ポストメディウムアートは、
+
+　複数のメディウムを持つ。
+
+　最初に、
+
+　　複数のメディウムが加えられる。
+
+
+　メディウムを再定義するには、
+
+　　複数のメディウムを使って、彼らに依頼する。
+
+
+　さあ、やってみよう。
+
+　　絵と彫刻とコードの融合したポストメディウムアート。
+　　しかし、メディウムを再定義するものは、いずこに。
+
+
+`,
+                readingTexts: [
+                    'using System;',
+                    'システムを用いる。',
+                    'using System.Collections.Generic;',
+                    'システムの汎用知識を用いる。',
+                    'interface IMediumRedefiner',
+                    'メディウムを再定義するものがいるとする。',
+                    '    string RedefineMedium(List<string> media);',
+                    '　彼らは複数のメディウムを使って、メディウムを再定義する。',
+                    'class PostMediumArt',
+                    'ポストメディウムアートは、',
+                    '    private List<string> media = new List<string>();',
+                    '　複数のメディウムを持つ。',
+                    '    public PostMediumArt(params string[] media)',
+                    '　最初に、',
+                    '        media.AddRange(media);',
+                    '　　複数のメディウムが加えられる。',
+                    '    public string RedefineMedium(IMediumRedefiner redefiner)',
+                    '　メディウムを再定義するには、',
+                    '        return redefiner.RedefineMedium(media);',
+                    '　　複数のメディウムを使って、彼らに依頼する。',
+                    '    static void Main(string[] args)',
+                    '　さあ、やってみよう。',
+                    '        var art = new PostMediumArt("Painting", "Sculpture", "Code");',
+                    '　　絵と彫刻とコードを融合したポストメディウムアート。しかし、メディウムを再定義するものは、いずこに。',
+                ],
+            },
+            'へ': {
+                title: 'ヘリオグラフィー - Ruby',
+                codeTitle: 'Heliography // Ruby',
+                code: `\
+class Heliography
+  def initialize(size)
+    @data = '-' * size
+    @time = 0
+  end
+  
+  def expose_to_sunlight
+    @time = [@time + 1, @data.size].min
+    @data[0, @time] = '+' * @time
+  end
+
+  def to_s
+    @data
+  end
+end
+
+heliograph = Heliography.new(3)
+heliograph.expose_to_sunlight
+heliograph.expose_to_sunlight
+puts heliograph
+`,
+                translation: `\
+太陽光写真術について
+　はじめに、
+　　画面は空白、
+　　時間は静寂
+
+
+　光の下、
+　　時は進み、
+　　太陽の痕跡が残る
+
+
+　みえるのは、
+　　進む時間の物語
+
+
+太陽写真、新たに三つの空間で誕生
+一度、太陽の下へと姿を晒し
+再び、光の中へと歩みを進め
+みると、そこに映るは変わりゆく風景`,
+            readingTexts: [
+                'class Heliography',
+                '太陽光写真じゅつについて',
+                '  def initialize(size)',
+                '　はじめに、',
+                '@ data = hyphen times size',
+                '　　画面は空白、',
+                '    @time = 0',
+                '　　時間はせいじゃく',
+                '  def expose_to_sunlight',
+                '　光のもと、',
+                '    @time = [@time + 1, @data dot size] dot min',
+                '　　時は進み、',
+                '    @data[0, @time] = plus times @time',
+                '　　太陽の痕跡が残る',
+                '  def to_s',
+                '　みえるのは、',
+                '    @data',
+                '　　進む時間の物語',
+                'heliograph = Heliography dot new(3)',
+                '太陽写真、新たに三つの空間で誕生',
+                'heliograph dot expose_to_sunlight',
+                '一度、太陽の下へと姿を晒し',
+                'heliograph dot expose_to_sunlight',
+                '再び、光の中へと歩みを進め',
+                'puts heliograph',
+                'みると、そこに映るは変わりゆく風景',
+            ],
+        },
+            'と': {
+                title: 'トランスメディア - PHP',
+                codeTitle: 'Transmedia // PHP',
+                code: `\
+<?php
+
+class TransmediaStory {
+    private $coreTheme;
+
+    public function __construct($theme) {
+        $this->coreTheme = $theme;
+    }
+
+    function transform($format) {
+        return "Core: {$this->coreTheme}, " .
+               "Reduced to: {$format}";
+    }
+}
+
+$story = new TransmediaStory("Human Connection");
+$story->transform("Just a Title");
+$story->transform("Just a Visual");
+$story->transform("Just a Hashtag");`,
+                translation: `\
+拝啓
+
+トランスメディアの物語は、
+　コアとなるテーマを持つ。
+
+　始めに、
+　　コアとなるテーマが設定される。
+
+
+　ある形式への変身、
+　　コアとなるテーマはその形式に成り下がる。
+
+
+
+
+「人間の繋がり」という物語をつくる。
+タイトルだけになった物語。
+映像だけになった物語。
+ハッシュタグだけになった物語。`,
+                readingTexts: [
+                    'php',
+                    '拝啓',
+                    'class TransmediaStory {',
+                    'トランスメディアの物語は、',
+                    '    private $coreTheme;',
+                    '　コアとなるテーマを持つ。',
+                    '    public function __construct(dollar theme) {',
+                    '　始めに、',
+                    '        dollar this arrow coreTheme = dollar theme;',
+                    '　　コアとなるテーマが設定される。',
+                    '    function transform(dollar format) {',
+                    'ある形式への変身、',
+                    '        return "Core: {dollar this arrow coreTheme}, Reduced to: {dollar format}"',
+                    '　　コアとなるテーマはその形式に成り下がる。',
+                    'dollar story = new TransmediaStory("Human Connection");',
+                    '「人間の繋がり」という物語をつくる。',
+                    'dollar story arrow transform("Just a Title");',
+                    'タイトルだけになった物語。',
+                    'dollar story arrow transform("Just a Visual");',
+                    '映像だけになった物語。',
+                    'dollar story arrow transform("Just a Hashtag");`,',
+                    'ハッシュタグだけになった物語。',
+                ],
+            },
+        };
+        let poemKey = '';
+
+        function changePoem(_poemKey) {
+            if (poems[_poemKey]) {
+                poemKey = _poemKey;
+                document.getElementById('code-text').textContent = poems[poemKey].code;
+                document.getElementById('translation-text').textContent = poems[poemKey].translation;
+                document.getElementById('poem-title').textContent = poems[poemKey].title;
+
+                document.querySelectorAll('.menu a').forEach(function(el) {
+                    el.classList.remove('selected');
+                });
+                document.querySelector(`.menu a[onclick*="${poemKey}"]`).classList.add('selected');
+
+            }
+        }
+
+        function readPoem(lines) {
+            let currentLine = 0;
+
+            const utterance = new SpeechSynthesisUtterance();
+            const voices = [getVoice('en'), getVoice('ja')];
+            utterance.rate = 0.9;
+
+            function readNextLine() {
+                if (currentLine < lines.length) {
+                    utterance.voice = voices[currentLine % 2];
+                    utterance.text = lines[currentLine++];
+                    utterance.onend = readNextLine;
+                    speechSynthesis.speak(utterance);
+                }
+            }
+
+            readNextLine();
+        }
+
+        function getVoice(lang) {
+            const voices = speechSynthesis.getVoices();
+            if (lang == 'ja') {
+                const japaneseVoices = voices.filter(voice => voice.lang.includes('ja-JP'));
+                const voice = japaneseVoices.find(voice => voice.name === 'Hattori') ||
+                    japaneseVoices.find(voice => voice.name === 'O-Ren') ||
+                    japaneseVoices.find(voice => voice.name === 'Kyoko') ||
+                    japaneseVoices[0];
+                return voice;
+            } else {
+                const englishVoices = voices.filter(voice => voice.lang.includes('en-US'));
+                return englishVoices[0];
+            }
+        }
+
+        function convertToRomaji(poemKey) {
+            const conversion = { 'い': 'i', 'ろ': 'ro', 'は': 'ha', 'に': 'ni', 'ほ': 'ho', 'へ': 'he', 'と': 'to' };
+            return conversion[poemKey];
+        }
+
+        function runPoem(poemKey) {
+            const poem = convertToRomaji(poemKey);
+            const url = `https://api.poesy.run/run?poem=${poem}`;
+            // const url = `http://127.0.0.1/run?poem=${poem}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('poem-key').textContent = poems[poemKey].title;
+                    document.getElementById('elapsed-time').textContent = data.elapsedTime + ' 秒';
+                    document.getElementById('timestamp').textContent = formatTimestamp(data.timestamp);
+                    document.getElementById('mac-address').textContent = data.macAddress;
+                    document.getElementById('issued-date').textContent = formatTimestampForIssuedDate(new Date().getTime());
+                    showModal();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('error-poem-key').textContent = poems[poemKey].title;
+                    document.getElementById('error-timestamp').textContent = formatTimestamp(new Date().getTime());
+                    document.getElementById('error-issued-date').textContent = formatTimestampForIssuedDate(new Date().getTime());
+                    showErrorModal();
+                });
+        }
+
+        function formatTimestamp(timestamp) {
+            console.log(timestamp);
+            const date = new Date(timestamp);
+            const year = date.getFullYear();
+            const month = ('0' + (date.getMonth() + 1)).slice(-2);
+            const day = ('0' + date.getDate()).slice(-2);
+            const hours = ('0' + date.getHours()).slice(-2);
+            const minutes = ('0' + date.getMinutes()).slice(-2);
+            const seconds = ('0' + date.getSeconds()).slice(-2);
+            const milliSeconds = ('00' + date.getMilliseconds()).slice(-3);
+            return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}.${milliSeconds}`;
+        }
+
+        function formatTimestampForIssuedDate(timestamp) {
+            const date = new Date(timestamp);
+            const year = date.getFullYear();
+            const month = ('0' + (date.getMonth() + 1)).slice(-2);
+            const day = ('0' + date.getDate()).slice(-2);
+            return `${year} 年 ${month} 月 ${day} 日　発行`;
+        }
+
+        function showModal() {
+            const modal = document.getElementById("runResultModal");
+            const span = document.getElementsByClassName("close")[0];
+
+            modal.style.display = "block";
+
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
+
+        function showErrorModal() {
+            const modal = document.getElementById('errorModal');
+            const span = modal.querySelector('.close');
+
+            modal.style.display = "block";
+
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
+
+        document.getElementById('read-poem-button').addEventListener('click', function() {
+            const rightColumn = document.getElementById('translation-text');
+            rightColumn.style.opacity = 1;
+            readPoem(poems[poemKey].readingTexts);
+        });
+
+        document.getElementById('run-poem-button').addEventListener('click', function() {
+            runPoem(poemKey);
+        });
+
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = function() {
+                const voices = speechSynthesis.getVoices();
+                console.log(voices);
+            };
+        }
+
+        changePoem('い');
+    </script>
+</body>
+</html>
