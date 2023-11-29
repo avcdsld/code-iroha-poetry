@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Code Poetry</title>
 
     <link rel="icon" href="/favicon.ico" sizes="any"><!-- 32×32 -->
@@ -30,9 +31,10 @@
             box-sizing: border-box;
             font-family: 'Hina Mincho', serif;
 
-            background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #ffffff 14px ), repeating-linear-gradient( #ffffffdc, #e8e8e8 );
-            animation: colorChange 60s infinite;
-            height: 100vh;
+            background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #ffffff77 14px ), repeating-linear-gradient( #ffffffaa, #e8e8e8 );
+            background-attachment: fixed;
+            animation: colorChange 40s infinite;
+            min-height: 100vh;
         }
         h2 {
             font-size: 1.5em;
@@ -47,7 +49,6 @@
         .menu {
             margin-top: 20px;
             padding: 10px;
-            width: 80vw;
             margin-left: auto;
             margin-right: auto;
             text-align: center;
@@ -80,11 +81,8 @@
         }
 
         .container {
-            align-items: center;
-            justify-content: center;
             max-width: 60vw;
-            margin: 0 auto;
-            position: relative;
+            margin: 40px auto;
         }
 
         .text {
@@ -93,8 +91,8 @@
 
         @media (max-width: 768px) {
             .container {
-                width: 95%;
-                padding: 20px;
+                margin: 40px auto;
+                min-width: 80vw;
             }
 
             h2,
@@ -105,7 +103,7 @@
 
         @media (min-width: 769px) and (max-width: 1024px) {
             .container {
-                width: 85%;
+                min-width: 85vw;
             }
         }
     </style>
@@ -131,6 +129,11 @@
         </div>
         <div class="text">
             Created by Ara (X: @arandoros)
+        </div>
+        <div class="text">
+        <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+            <span property="dct:title">コードいろは歌 © 2023</span> by <span property="cc:attributionName">Ara</span> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0</a> <img style="height:18px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:18px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1">
+        </p>
         </div>
         <div class="text">&nbsp;</div>
     </div>

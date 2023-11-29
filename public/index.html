@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Code Poetry</title>
 
     <link rel="icon" href="/favicon.ico" sizes="any"><!-- 32×32 -->
@@ -30,9 +31,10 @@
             box-sizing: border-box;
             font-family: 'Hina Mincho', serif;
 
-            background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #ffffff 14px ), repeating-linear-gradient( #ffffffdc, #e8e8e8 );
-            animation: colorChange 60s infinite;
-            height: 100vh;
+            background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #ffffff77 14px ), repeating-linear-gradient( #ffffffaa, #e8e8e8 );
+            background-attachment: fixed;
+            animation: colorChange 40s infinite;
+            min-height: 100vh;
         }
         h2 {
             font-size: 1.5em;
@@ -47,7 +49,6 @@
         .menu {
             margin-top: 20px;
             padding: 10px;
-            width: 80vw;
             margin-left: auto;
             margin-right: auto;
             text-align: center;
@@ -111,7 +112,6 @@
             justify-content: center;
             max-width: 80vw;
             margin: 0 auto;
-            position: relative;
         }
 
         .read-poem-button {
@@ -128,7 +128,6 @@
             margin: 0;
             padding: 40px;
             min-height: 60vh;
-            height: auto;
             overflow-x: auto;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: box-shadow 0.3s;
@@ -236,41 +235,66 @@
         }
 
         @media (max-width: 768px) {
-            .modal-content,
-            .container {
-                width: 95%;
-                padding: 20px;
-            }
-
-            .modal-header,
-            .modal-footer,
-            .button,
             h2,
             .poem-title {
                 font-size: 18px;
             }
 
+            .menu a {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .button {
+                margin: 10px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 0;
+                max-width: 100%;
+                margin: 5px;
+            }
+
+            .column {
+                min-height: 80vh;
+            }
+
             .column,
             .left-column pre,
             .translation-text {
-                padding: 10px;
+                padding: 2px 6px;
                 font-size: 0.9em;
                 overflow-x: auto;
             }
-        }
 
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .modal-content,
-            .container {
-                width: 85%;
+            .modal-content {
+                max-width: 95%;
+                padding: 30px;
+            }
+            .modal-header,
+            .modal-body,
+            .modal-footer {
+                font-size: 12px;
+            }
+            .signature {
+                max-width: 40px;
+                height: auto;
             }
         }
+
+        /* @media (min-width: 769px) and (max-width: 1024px) {
+            .modal-content,
+            .container {
+                min-width: 80vw;
+            }
+        } */
     </style>
 </head>
 <body>
     <div class="menu">
         <a href="about.html" >概要</a>
-        &ensp;|&emsp;
+        &nbsp;|&nbsp;
         <a href="#" onclick="changePoem('い')">い</a>
         <a href="#" onclick="changePoem('ろ')">ろ</a>
         <a href="#" onclick="changePoem('は')">は</a>
