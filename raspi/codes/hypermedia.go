@@ -4,12 +4,12 @@ type Hypermedia struct {
     Media []interface{}
 }
 
-func (h *Hypermedia) AddMedia(media interface{}) {
-    h.Media = append(h.Media, media)
+func (h *Hypermedia) AddMedium(medium interface{}) {
+    h.Media = append(h.Media, medium)
 }
 
 func main() {
     hypermedia := &Hypermedia{}
-    hypermedia.AddMedia("art")
-    hypermedia.AddMedia([]byte("art"))
+    hypermedia.AddMedium("art")
+    hypermedia.AddMedium([]byte("art"))
 }

@@ -20,7 +20,7 @@
             28%  { background-color: #c0c0c0; } /* ハイパーメディア: 銀鼠色 */
             42%  { background-color: #00ff00; } /* ニューメディアアート: 青竹色 */
             56%  { background-color: #a98b79; } /* ポストメディウム: 枯茶色 */
-            70%  { background-color: #ffc20e; } /* ヘリオグラフィー: 山吹色 */
+            70%  { background-color: #ffc20e; } /* ヘリオグラフィ: 山吹色 */
             84%  { background-color: #003366; } /* トランスメディア: 紺色 */
             100% { background-color: #9673a6; } /* 最後に最初の色に戻る */
         }
@@ -395,7 +395,8 @@ class InteractiveArt {
 }
 
 const art = new InteractiveArt();
-art.visit(1);`,
+art.visit(1);
+ `,
                 translation: `\
 対話型アートの創作、
 　はじめに、
@@ -408,21 +409,22 @@ art.visit(1);`,
 
 
 アートは生まれる。
-一人の訪問者が来ると、新たな物語が紡がれる。`,
+一人の訪問者が来ると、新たな物語が紡がれる。
+ `,
                 readingTexts: [
-                    'class InteractiveArt {',
+                    'class Interactive Art',
                     '対話型アートの創作、',
-                    '  constructor() {',
+                    '  constructor',
                     '　はじめに、',
-                    '    this.totalVisitors = 0;',
+                    '    this dot totalVisitors = 0;',
                     '　　訪れるものの数、まだ無し。',
-                    '  visit(numberOfVisitors) {',
+                    '  visit number of visitors',
                     '　訪れるごとに、',
-                    '    this.totalVisitors += numberOfVisitors;',
+                    '    this dot totalVisitors += number of visitors',
                     '　　足跡は一つずつ積み上がる',
-                    'const art = new InteractiveArt();',
+                    'const art = new Interactive Art',
                     'アートは生まれる。',
-                    'art dot visit(1);`,',
+                    'art dot visit 1',
                     '一人の訪問者がくると、新たな物語が紡がれる。',
                 ],
             },
@@ -439,7 +441,8 @@ def lofi_effect(char):
         return char.upper()
 
 original = "Art"
-lofi_art = "".join(map(lofi_effect, original))`,
+lofi_art = "".join(map(lofi_effect, original))
+ `,
                 translation: `\
 偶然を呼び込む
 
@@ -450,24 +453,25 @@ lofi_art = "".join(map(lofi_effect, original))`,
 　　力強い叫びへ
 
 始まりは「アート」
-偶然が紡ぐ、多様な調和`,
+偶然が紡ぐローファイアート
+ `,
                 readingTexts: [
                     'import random',
                     '偶然を呼び込む',
-                    'def lo-fi effect(char):',
+                    'def lo-fi effect char',
                     '言葉を変えるローファイの効用',
-                    '    if random.choice([True, False]):',
+                    '    if random dot choice True or False',
                     '　運命のコインがそらに舞い、',
-                    '        return char.lower()',
+                    '        return char dot lower',
                     '　　言葉は静かな囁きへ',
                     '    else:',
                     '　あるいは、',
-                    '        return char.upper()',
+                    '        return char dot upper',
                     '　　力強い叫びへ',
                     'original = "Art"',
                     '始まりは「アート」',
-                    'lo-fi art = "" dot join(map(lo-fi effect, original))`,',
-                    '偶然が紡ぐ、多様な調和',
+                    'lo-fi art = empty string dot join map lo-fi effect, original',
+                    '偶然が紡ぐローファイアート',
                 ],
             },
             'は': {
@@ -480,15 +484,16 @@ type Hypermedia struct {
     Media []interface{}
 }
 
-func (h *Hypermedia) AddMedia(media interface{}) {
-    h.Media = append(h.Media, media)
+func (h *Hypermedia) AddMedium(medium interface{}) {
+    h.Media = append(h.Media, medium)
 }
 
 func main() {
     hypermedia := &Hypermedia{}
-    hypermedia.AddMedia("art")
-    hypermedia.AddMedia([]byte("art"))
-}`,
+    hypermedia.AddMedium("art")
+    hypermedia.AddMedium([]byte("art"))
+}
+ `,
                 translation: `\
 
 
@@ -496,33 +501,35 @@ func main() {
 　多様なメディアから形作られるもの。
 
 
-メディアが加わると、
+メディウムが加わると、
 　一つに結ばれ、姿は変わりゆく。
 
 
 
-展開されるハイパーメディア。
-言葉から始まり、
-融合する色彩。`,
+ハイパーメディアをつくる。
+文字から始まり、
+融合するメディウム。
+
+ `,
                 readingTexts: [
                     'package main',
                     '',
-                    'type Hypermedia struct {',
+                    'type Hypermedia struct',
                     'ハイパーメディアとは、',
-                    '    Media []interface{}',
+                    '    Media array of interface',
                     '　多様なメディアから形作られるもの。',
-                    'func (h *Hypermedia) AddMedia(media interface{}) {',
-                    'メディアが加わると、',
-                    '    h.Media = append(h.Media, media)',
+                    'func h asterisk Hypermedia AddMedium medium interface',
+                    'メディウムが加わると、',
+                    '    h dot Media = append h dot Media, medium',
                     '　一つに結ばれ、姿は変わりゆく。',
-                    'func main() {',
+                    'func main',
                     '',
-                    '    hypermedia := &Hypermedia{}',
-                    '展開されるハイパーメディア。',
-                    '    hypermedia.AddMedia("art")',
-                    '言葉から始まり、',
-                    '    hypermedia.AddMedia([]byte("art"))',
-                    '融合する色彩。',
+                    '    hypermedia colon = & Hypermedia',
+                    'ハイパーメディアをつくる。',
+                    '    hypermedia AddMedium "art"',
+                    '文字から始まり、',
+                    '    hypermedia AddMedium byte data of "art"',
+                    '融合するメディウム。',
 
                 ],
             },
@@ -545,7 +552,8 @@ public class Main {
         NewMediaArt fakeNewMediaArt
                              = new NewMediaArt("");
     }
-}`,
+}
+ `,
                 translation: `\
 初めにメディアアートあり。
 
@@ -560,23 +568,26 @@ public class Main {
 
 
 造られた偽のニューメディアアート。
-革新的要素は、何も無い。`,
+革新的要素は、何も無い。
+
+
+ `,
                 readingTexts: [
-                    'class MediaArt { }',
+                    'class MediaArt',
                     '初めにメディアアートあり。',
-                    'class NewMediaArt extends MediaArt {',
+                    'class NewMediaArt extends MediaArt',
                     '',
-                    '    String innovativeElement;',
+                    '    String innovative element;',
                     'ニューメディアアートは、メディアアートを拡張し、革新的要素を持つもの。',
-                    '    public NewMediaArt(String innovativeElement) {',
+                    '    public NewMediaArt String innovative element',
                     '',
-                    '        this.innovativeElement = innovativeElement;',
+                    '        this dot innovative element = innovative element;',
                     '　内なる心に、革新的要素を持つ。',
-                    'public class Main {',
+                    'public class Main',
                     '',
-                    '    public static void main(String[] args) {',
+                    '    public static void main String array args',
                     '',
-                    '        NewMediaArt fakeNewMediaArt = new NewMediaArt("");',
+                    '        NewMediaArt fakeNewMediaArt =, new, NewMediaArt empty string',
                     '造られたニセのニューメディアアート。革新的要素は、何も無い。',
                 ],
             },
@@ -611,7 +622,8 @@ class PostMediumArt
         var art = new PostMediumArt(
                          "Painting", "Sculpture", "Code");
     }
-}`,
+}
+ `,
                 translation: `\
 システムを用いる。
 システムの汎用知識を用いる。
@@ -637,40 +649,41 @@ class PostMediumArt
 
 　さあ、やってみよう。
 
-　　絵と彫刻とコードの融合したポストメディウムアート。
+　　絵と彫刻とコードを融合したポストメディウムアート。
 　　しかし、メディウムを再定義するものは、いずこに。
 
 
-`,
+
+ `,
                 readingTexts: [
-                    'using System;',
+                    'using System',
                     'システムを用いる。',
-                    'using System.Collections.Generic;',
+                    'using System dot Collections dot Generic;',
                     'システムの汎用知識を用いる。',
                     'interface IMediumRedefiner',
                     'メディウムを再定義するものがいるとする。',
-                    '    string RedefineMedium(List<string> media);',
+                    '    string RedefineMedium List<string> media',
                     '　彼らは複数のメディウムを使って、メディウムを再定義する。',
                     'class PostMediumArt',
                     'ポストメディウムアートは、',
-                    '    private List<string> media = new List<string>();',
+                    '    private List string media = new List string',
                     '　複数のメディウムを持つ。',
-                    '    public PostMediumArt(params string[] media)',
+                    '    public PostMediumArt params string array media',
                     '　最初に、',
-                    '        media.AddRange(media);',
+                    '        media dot AddRange media',
                     '　　複数のメディウムが加えられる。',
-                    '    public string RedefineMedium(IMediumRedefiner redefiner)',
+                    '    public string RedefineMedium IMediumRedefiner redefiner',
                     '　メディウムを再定義するには、',
-                    '        return redefiner.RedefineMedium(media);',
+                    '        return redefiner dot RedefineMedium media',
                     '　　複数のメディウムを使って、彼らに依頼する。',
-                    '    static void Main(string[] args)',
+                    '    static void Main string array args',
                     '　さあ、やってみよう。',
-                    '        var art = new PostMediumArt("Painting", "Sculpture", "Code");',
+                    '        var art = new PostMediumArt "Painting", "Sculpture", "Code"',
                     '　　絵と彫刻とコードを融合したポストメディウムアート。しかし、メディウムを再定義するものは、いずこに。',
                 ],
             },
             'へ': {
-                title: 'ヘリオグラフィー - Ruby',
+                title: 'ヘリオグラフィ - Ruby',
                 codeTitle: 'Heliography // Ruby',
                 code: `\
 class Heliography
@@ -693,15 +706,15 @@ heliograph = Heliography.new(3)
 heliograph.expose_to_sunlight
 heliograph.expose_to_sunlight
 puts heliograph
-`,
+ `,
                 translation: `\
-太陽光写真術について
+ヘリオグラフィ技法について
 　はじめに、
 　　画面は空白、
 　　時間は静寂
 
 
-　光の下、
+　太陽の光に晒すと、
 　　時は進み、
 　　太陽の痕跡が残る
 
@@ -710,35 +723,37 @@ puts heliograph
 　　進む時間の物語
 
 
-太陽写真、新たに三つの空間で誕生
-一度、太陽の下へと姿を晒し
-再び、光の中へと歩みを進め
-みると、そこに映るは変わりゆく風景`,
+
+ヘリオグラフィ技法で写真をつくる
+太陽の光に晒す
+再び、光の中へ
+みると、そこに映るは変わりゆく風景
+ `,
             readingTexts: [
                 'class Heliography',
-                '太陽光写真じゅつについて',
-                '  def initialize(size)',
+                'ヘリオグラフィー技法について',
+                '  def initialize size',
                 '　はじめに、',
-                '@ data = hyphen times size',
+                '    @ data = hyphen times size',
                 '　　画面は空白、',
-                '    @time = 0',
+                '    @ time = 0',
                 '　　時間はせいじゃく',
-                '  def expose_to_sunlight',
-                '　光のもと、',
-                '    @time = [@time + 1, @data dot size] dot min',
+                '  def expose to sunlight',
+                '　太陽の光に晒すと、',
+                '    @ time = @ time + 1 to @ data dot size] dot min',
                 '　　時は進み、',
-                '    @data[0, @time] = plus times @time',
+                '    @ data 0 to @ time = plus times @ time',
                 '　　太陽の痕跡が残る',
-                '  def to_s',
+                '  def to string',
                 '　みえるのは、',
-                '    @data',
+                '    @ data',
                 '　　進む時間の物語',
-                'heliograph = Heliography dot new(3)',
-                '太陽写真、新たに三つの空間で誕生',
-                'heliograph dot expose_to_sunlight',
-                '一度、太陽の下へと姿を晒し',
-                'heliograph dot expose_to_sunlight',
-                '再び、光の中へと歩みを進め',
+                'heliograph = Heliography dot new 3',
+                'ヘリオグラフィー技法で写真をつくる',
+                'heliograph dot expose to sunlight',
+                '太陽の光のもとに晒す',
+                'heliograph dot expose to sunlight',
+                '再び、光の中え',
                 'puts heliograph',
                 'みると、そこに映るは変わりゆく風景',
             ],
@@ -765,7 +780,8 @@ class TransmediaStory {
 $story = new TransmediaStory("Human Connection");
 $story->transform("Just a Title");
 $story->transform("Just a Visual");
-$story->transform("Just a Hashtag");`,
+$story->transform("Just a Hashtag");
+ `,
                 translation: `\
 拝啓
 
@@ -784,30 +800,31 @@ $story->transform("Just a Hashtag");`,
 
 「人間の繋がり」という物語をつくる。
 タイトルだけになった物語。
-映像だけになった物語。
-ハッシュタグだけになった物語。`,
+ビジュアルだけになった物語。
+ハッシュタグだけになった物語。
+ `,
                 readingTexts: [
                     'php',
                     '拝啓',
-                    'class TransmediaStory {',
+                    'class TransmediaStory',
                     'トランスメディアの物語は、',
-                    '    private $coreTheme;',
+                    '    private dollar core theme',
                     '　コアとなるテーマを持つ。',
-                    '    public function __construct(dollar theme) {',
+                    '    public function construct dollar theme',
                     '　始めに、',
-                    '        dollar this arrow coreTheme = dollar theme;',
+                    '        dollar this core theme = dollar theme',
                     '　　コアとなるテーマが設定される。',
-                    '    function transform(dollar format) {',
+                    '    function transform dollar format',
                     'ある形式への変身、',
-                    '        return "Core: {dollar this arrow coreTheme}, Reduced to: {dollar format}"',
+                    '        return "Core is dollar this core theme, Reduced to dollar format"',
                     '　　コアとなるテーマはその形式に成り下がる。',
-                    'dollar story = new TransmediaStory("Human Connection");',
+                    'dollar story = new TransmediaStory "Human Connection"',
                     '「人間の繋がり」という物語をつくる。',
-                    'dollar story arrow transform("Just a Title");',
+                    'dollar story transform "Just a Title"',
                     'タイトルだけになった物語。',
-                    'dollar story arrow transform("Just a Visual");',
-                    '映像だけになった物語。',
-                    'dollar story arrow transform("Just a Hashtag");`,',
+                    'dollar story transform "Just a Visual"',
+                    'ビジュアルだけになった物語。',
+                    'dollar story transform "Just a Hashtag",',
                     'ハッシュタグだけになった物語。',
                 ],
             },
