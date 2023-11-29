@@ -32,15 +32,21 @@
 
             background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #ffffff 14px ), repeating-linear-gradient( #ffffffdc, #e8e8e8 );
             animation: colorChange 60s infinite;
+            height: 100vh;
         }
         h2 {
             font-size: 1.5em;
             line-height: 1.5em;
             margin-bottom: 36px;
         }
+        body, h1, h2, h3 {
+            -webkit-font-smoothing: antialiased;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
 
         .menu {
             margin-top: 20px;
+            padding: 10px;
             width: 80vw;
             margin-left: auto;
             margin-right: auto;
@@ -54,6 +60,13 @@
             border-radius: 50%;
             padding: 5px 10px;
             display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .menu a:hover {
+            color: #d0d0d0;
+            background-color: #f8f8f8;
+            transition: background-color 0.3s, color 0.3s;
+            transform: translateY(-2px);
         }
         .menu .selected {
             background-color: #d0d0d0;
@@ -74,12 +87,22 @@
         .button {
             opacity: 0.9;
             background-color: #ffffff;
-            padding: 2px 50px;
-            margin: 0 15px;
+            margin: 20px;
+            padding: 10px;
             border: none;
             cursor: pointer;
             font-size: 1em;
             font-family: 'Hina Mincho', serif;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .button:hover {
+            background-color: #f2f2f2;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        .button:active {
+            transform: scale(0.98);
         }
 
         .container {
@@ -106,10 +129,14 @@
             padding: 40px;
             min-height: 60vh;
             height: auto;
+            overflow-x: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s;
         }
         .left-column {
             opacity: 0.8;
             background-color: #ffffff;
+            overflow-y: hidden;
         }
         .left-column h2 {
             font-family: 'IPAexMincho', serif;
@@ -118,6 +145,7 @@
             font-family: 'Inconsolata', serif;
             font-size: 1em;
             line-height: 1.2em;
+            overflow-x: auto;
         }
         .right-column {
             opacity: 0.8;
@@ -127,6 +155,8 @@
             font-family: 'Hina Mincho', serif;
             font-size: 1em;
             line-height: 1.2em;
+            overflow-x: auto;
+            overflow-y: hidden;
         }
 
         .modal {
@@ -223,7 +253,7 @@
             .column,
             .left-column pre,
             .translation-text {
-                padding: 20px;
+                padding: 10px;
                 font-size: 0.9em;
                 overflow-x: auto;
             }
@@ -759,6 +789,8 @@ $story->transform("Just a Hashtag");`,
             },
         };
         let poemKey = '';
+        let voices = [];
+        let isReading = false;
 
         function changePoem(_poemKey) {
             if (poems[_poemKey]) {
@@ -775,23 +807,37 @@ $story->transform("Just a Hashtag");`,
             }
         }
 
-        function readPoem(lines) {
-            let currentLine = 0;
+        async function readPoem(lines) {
+            if (isReading) {
+                speechSynthesis.cancel();
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            isReading = true;
 
-            const utterance = new SpeechSynthesisUtterance();
-            const voices = [getVoice('en'), getVoice('ja')];
-            utterance.rate = 0.9;
-
-            function readNextLine() {
-                if (currentLine < lines.length) {
-                    utterance.voice = voices[currentLine % 2];
-                    utterance.text = lines[currentLine++];
-                    utterance.onend = readNextLine;
-                    speechSynthesis.speak(utterance);
-                }
+            if (voices.length === 0) {
+                voices = [getVoice('en'), getVoice('ja')];
             }
 
-            readNextLine();
+            async function readLine(text, voice) {
+                return new Promise((resolve) => {
+                    const utterance = new SpeechSynthesisUtterance();
+                    utterance.text = text;
+                    utterance.voice = voice;
+                    utterance.rate = 0.9;
+                    utterance.onend = () => {
+                        resolve();
+                    };
+                    speechSynthesis.speak(utterance);
+                });
+            }
+
+            for (let i = 0; i < lines.length; i++) {
+                if (!isReading) {
+                    break;
+                }
+                await readLine(lines[i], voices[i % 2]);
+            }
+            isReading = false;
         }
 
         function getVoice(lang) {
@@ -899,8 +945,6 @@ $story->transform("Just a Hashtag");`,
         }
 
         document.getElementById('read-poem-button').addEventListener('click', function() {
-            const rightColumn = document.getElementById('translation-text');
-            rightColumn.style.opacity = 1;
             readPoem(poems[poemKey].readingTexts);
         });
 
