@@ -789,7 +789,7 @@ $story->transform("Just a Hashtag");`,
             },
         };
         let poemKey = '';
-        let voices = [];
+        let voices = {};
         let isReading = false;
 
         function changePoem(_poemKey) {
@@ -814,19 +814,35 @@ $story->transform("Just a Hashtag");`,
             }
             isReading = true;
 
-            if (voices.length === 0) {
-                voices = [getVoice('en'), getVoice('ja')];
+            if (!voices['en']) {
+                voices['en'] = getVoice('en');
+                voices['ja'] = getVoice('ja');
             }
 
-            async function readLine(text, voice) {
+            async function readLine(text, lang) {
                 return new Promise((resolve) => {
                     const utterance = new SpeechSynthesisUtterance();
                     utterance.text = text;
-                    utterance.voice = voice;
+                    utterance.lang = lang;
+                    utterance.voice = voices[lang];
                     utterance.rate = 0.9;
                     utterance.onend = () => {
                         resolve();
                     };
+                    utterance.addEventListener('boundary', e => {
+                        if (e.name != "word") {
+                            return;
+                        }
+                        console.log(e);
+                        // var element = document.getElementById("ここにターゲットにする要素");
+                        // var range = document.createRange();
+                        // range.selectNodeContents(element);
+                        
+                        // window.getSelection().addRange(range);
+                        // textarea.focus();
+                        // textarea.setSelectionRange(e.charIndex, e.charIndex + e.charLength);
+                    });
+                    // u.addEventListener("end", () => textarea.setSelectionRange(0, 0));
                     speechSynthesis.speak(utterance);
                 });
             }
@@ -835,7 +851,8 @@ $story->transform("Just a Hashtag");`,
                 if (!isReading) {
                     break;
                 }
-                await readLine(lines[i], voices[i % 2]);
+                const lang = i % 2 === 0 ? 'en' : 'ja';
+                await readLine(lines[i], lang);
             }
             isReading = false;
         }
@@ -843,14 +860,14 @@ $story->transform("Just a Hashtag");`,
         function getVoice(lang) {
             const voices = speechSynthesis.getVoices();
             if (lang == 'ja') {
-                const japaneseVoices = voices.filter(voice => voice.lang.includes('ja-JP'));
+                const japaneseVoices = voices.filter(voice => voice.lang.includes('ja-JP') || voice.lang === 'ja_JP');
                 const voice = japaneseVoices.find(voice => voice.name === 'Hattori') ||
                     japaneseVoices.find(voice => voice.name === 'O-Ren') ||
                     japaneseVoices.find(voice => voice.name === 'Kyoko') ||
                     japaneseVoices[0];
                 return voice;
             } else {
-                const englishVoices = voices.filter(voice => voice.lang.includes('en-US'));
+                const englishVoices = voices.filter(voice => voice.lang.includes('en-US') || voice.lang === 'en_US');
                 return englishVoices[0];
             }
         }
